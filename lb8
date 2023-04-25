@@ -1,0 +1,51 @@
+#include <iostream>
+#include <fstream>
+#include <stack>
+
+using namespace std;
+
+int main() {
+    string filename = "program.c"; 
+    ifstream file(filename); 
+
+    if (!file.isopen()) {
+        cout << "Error: cannot open file " << filename << endl;
+        return 1;
+    }
+
+    stack<char> brackets; 
+
+    char c;
+    while (file.get(c)) { 
+        if (c == '{') {
+            brackets.push(c); 
+        } else if (c == '}') {
+            if (brackets.empty()) { 
+                cout << "Error: unmatched closing bracket '}'" << endl;
+                return 1;
+            } else {
+                brackets.pop(); 
+            }
+        }
+    }
+
+    file.close(); 
+
+    if (!brackets.empty()) { 
+        cout << "Error: unmatched opening bracket '{'" << endl;
+        return 1;
+    }
+
+    ofstream outfile("out.txt");
+    if (!outfile.isopen()) { 
+        cout << "Error: cannot create file out.txt" << endl;
+        return 1;
+    }
+
+    outfile << "The program " << filename << " is correct." << endl; 
+    cout << "The program " << filename << " is correct." << endl; 
+
+    outfile.close();
+
+    return 0;
+}
