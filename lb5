@@ -1,0 +1,30 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    const int ticketPrice = 10;
+    int ages[5];
+    int minAge = 100;
+
+
+    for (int i = 0; i < 5; i++) {
+        cin >> ages[i];
+        if (ages[i] < minAge) {
+            minAge = ages[i];
+        }
+    }
+
+
+    int totalCost = 0;
+    for (int i = 0; i < 5; i++) {
+        if (ages[i] == minAge) {
+            totalCost += ticketPrice / 2;
+        } else {
+            totalCost += ticketPrice;
+        }
+    }
+
+    cout << "Total cost: " << totalCost << endl;
+
+    return 0;
+}
